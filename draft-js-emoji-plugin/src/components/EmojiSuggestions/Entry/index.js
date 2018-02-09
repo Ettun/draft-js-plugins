@@ -4,7 +4,10 @@ import React, {
 } from 'react';
 import emojione from 'emojione';
 import emojiList from '../../../utils/emojiList';
+import { default as lifesizeEmojis, LifesizeUnicode } from '../../../emojis'
 import convertShortNameToUnicode from '../../../utils/convertShortNameToUnicode';
+
+const getLifesizeEmoji = (shortNameForImage) => (lifesizeEmojis[shortNameForImage.toLowerCase()]);
 
 export default class Entry extends Component {
 
@@ -45,8 +48,17 @@ export default class Entry extends Component {
       emojiDisplay = convertShortNameToUnicode(unicode);
     } else {
       // short name to image url code steal from emojione source code
-      const shortNameForImage = emojione.emojioneList[this.props.emoji].unicode[emojione.emojioneList[this.props.emoji].unicode.length - 1];
-      const fullImagePath = `${imagePath}${shortNameForImage}.${imageType}${cacheBustParam}`;
+      let shortNameForImage;
+      try {
+        shortNameForImage = emojione.emojioneList[this.props.emoji].unicode[emojione.emojioneList[this.props.emoji].unicode.length - 1];
+      } catch(e) {
+        shortNameForImage = LifesizeUnicode[this.props.emoji]
+      }
+      let fullImagePath = `${imagePath}${shortNameForImage}.${imageType}${cacheBustParam}`;
+      const lifesizeEmoji = getLifesizeEmoji(shortNameForImage[0]);
+      if (lifesizeEmoji) {
+        fullImagePath = lifesizeEmoji;
+      }
       emojiDisplay = (
         <img
           src={fullImagePath}

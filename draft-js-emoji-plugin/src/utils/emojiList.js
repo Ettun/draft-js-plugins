@@ -1,4 +1,5 @@
 import emojione from 'emojione';
+import { LifesizeUnicode } from '../emojis';
 
 const newEmojiListWithOutPriorityList = (priorityList) => {
   const list = {};
@@ -9,7 +10,7 @@ const newEmojiListWithOutPriorityList = (priorityList) => {
     list[key] = emojione.emojioneList[key].unicode;
   }
 
-  return { ...priorityList, ...list };
+  return { ...LifesizeUnicode, ...priorityList, ...list };
 };
 
 const emojiList = {};

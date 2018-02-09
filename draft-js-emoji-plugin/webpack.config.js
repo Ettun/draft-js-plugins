@@ -13,8 +13,20 @@ module.exports = {
       {
         test: /\.css$/,
         loader: ExtractTextPlugin.extract({ fallback: 'style-loader', use: 'css-loader?modules&importLoaders=1&localIdentName=draftJsEmojiPlugin__[local]__[hash:base64:5]!postcss-loader' }),
+      },
+      {
+        test: /\.svg(\?.*)?$/,
+        use: {
+          loader: 'url-loader',
+          options: {
+            mimetype: 'image/svg+xml',
+            // if bigger than the limit, the following properties are passed to file-loader
+            // and file-loader does the loading instead.
+            name: '[path][name].[ext]',
+          }
+        }
       }
-    ],
+    ]
   },
 
   plugins: [
