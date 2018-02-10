@@ -9,9 +9,12 @@ const Emoji = ({ theme = {}, cacheBustParam, imagePath, imageType, className, de
   const shortName = emojione.toShort(decoratedText);
 
   let emojiDisplay = null;
+  const combinedClassName = unionClassNames(theme.emoji, className);
+
   if (useNativeArt === true) {
     emojiDisplay = (
       <span
+        className={combinedClassName}
         title={emojione.toShort(decoratedText)}
       >
         {props.children}
@@ -33,7 +36,6 @@ const Emoji = ({ theme = {}, cacheBustParam, imagePath, imageType, className, de
       const background = `url('${lifesizeEmoji}')`;
       styleObject = { background, minWidth: 40, minHeight: 40 };
     }
-    const combinedClassName = unionClassNames(theme.emoji, className);
 
     emojiDisplay = (
       <span
